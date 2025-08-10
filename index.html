@@ -112,6 +112,7 @@
 <body>
     <video autoplay muted loop id="background-video">
         <source src="19609-303404131_small.mp4" type="video/mp4">
+        Browser Anda tidak mendukung elemen video.
     </video>
 
     <div class="container">
@@ -128,7 +129,7 @@
     <div id="music-info">Memutar musik...</div>
 
     <audio id="bgMusic" autoplay loop>
-        <source src="SpotiDown.App - Untuk Perempuan Yang Sedang Di Pelukan - Payung Teduh.mp3" type="audio/mpeg">
+        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
         Browser Anda tidak mendukung elemen audio.
     </audio>
 
@@ -152,10 +153,10 @@
             ":P"
         ];
 
-        let responseIndex = 0;
+        let responseIndex = 0; // Indeks untuk melacak respons yang ditampilkan
 
         // Set volume to 30% to not be too loud
-        music.volume = 30%;
+        music.volume = 0.3;
 
         goodBtn.addEventListener('click', () => {
             messageEl.textContent = "Makasih Bub aku bersyukur";
@@ -172,7 +173,6 @@
             } else {
                 messageEl.textContent = "Semua respons sudah ditampilkan!";
             }
-
             
             // Small bounce effect
             messageEl.style.transform = "scale(1.1)";
@@ -197,9 +197,3 @@
     </script>
 </body>
 </html>
-
-
-
-
-
-
