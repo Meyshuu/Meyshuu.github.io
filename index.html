@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Surprise for Bub</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+        
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            font-family: 'Poppins', sans-serif;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            overflow: hidden;
+        }
+
+        #background-video {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -1; /* Agar video berada di belakang konten */
+        }
+
+        .container {
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 30px;
+            border-radius: 15px;
+            max-width: 80%;
+            backdrop-filter: blur(5px);
+            animation: fadeIn 1.5s ease-in-out;
+        }
+
+        .logo {
+            width: 100px;
+            height: 100px;
+            object-fit: cover;
+            border-radius: 50%;
+            margin-bottom: 20px;
+            border: 3px solid white;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        .message {
+            font-size: 2rem;
+            margin-bottom: 30px;
+            min-height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.5s ease;
+        }
+
+        .buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+        }
+
+        button {
+            padding: 12px 25px;
+            font-size: 1.2rem;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .good {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        .bad {
+            background-color: #f44336;
+            color: white;
+        }
+
+        button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+        }
+
+        #music-info {
+            position: fixed;
+            bottom: 10px;
+            right: 10px;
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 0.8rem;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+    <video autoplay muted loop id="background-video">
+        <source src="" type="video/mp4">
+    </video>
+
+    <div class="container">
+        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/8337d163-1a54-4f7e-80c9-f52bcf5f669e.png" alt="Cute cartoon logo featuring two smiling faces with hearts around them" class="logo">
+        
+        <div class="message" id="message">Halo Bubb Gimana Surprisenya, Bagus Nggak?</div>
+        
+        <div class="buttons">
+            <button class="good" id="goodBtn">Bagus</button>
+            <button class="bad" id="badBtn">Enggak</button>
+        </div>
+    </div>
+
+    <div id="music-info">Memutar musik...</div>
+
+    <audio id="bgMusic" autoplay loop>
+        <source src="https://jumpshare.com/s/lV8NWAELQVVCN6tEQCQN" type="audio/mpeg">
+        Browser Anda tidak mendukung elemen audio.
+    </audio>
+
+    <script>
+        const goodBtn = document.getElementById('goodBtn');
+        const badBtn = document.getElementById('badBtn');
+        const messageEl = document.getElementById('message');
+        const music = document.getElementById('bgMusic');
+        const musicInfo = document.getElementById('music-info');
+
+        const responses = [
+            "Ayo dong kasih kesempatan kedua!",
+            "Pasti kurang glitter ya?",
+            "Hmmm mungkin kurang musik yang asik?",
+            "Aku janji bakal lebih bagus lain kali!",
+            "Jangan galak dong Bub~"
+        ];
+
+        // Set volume to 30% to not be too loud
+        music.volume = 0.3;
+
+        goodBtn.addEventListener('click', () => {
+            messageEl.textContent = "Makasih Bub aku bersyukur";
+            messageEl.style.color = "#4CAF50";
+            messageEl.style.fontWeight = "bold";
+        });
+
+        badBtn.addEventListener('click', () => {
+            const randomIndex = Math.floor(Math.random() * responses.length);
+            messageEl.textContent = responses[randomIndex];
+            messageEl.style.color = "#f44336";
+            messageEl.style.fontWeight = "normal";
+            
+            // Small bounce effect
+            messageEl.style.transform = "scale(1.1)";
+            setTimeout(() => {
+                messageEl.style.transform = "scale(1)";
+            }, 300);
+        });
+
+        // Update music info
+        music.addEventListener('play', () => {
+            musicInfo.textContent = "♪ Memutar musik latar...";
+        });
+
+        // Handle cases where autoplay might be blocked
+        document.addEventListener('click', () => {
+            if (music.paused) {
+                music.play().catch(e => {
+                    musicInfo.textContent = "Klik untuk memutar musik";
+                });
+            }
+        }, { once: true });
+    </script>
+</body>
+</html>
