@@ -157,10 +157,15 @@
         });
 
         badBtn.addEventListener('click', () => {
-            const randomIndex = Math.floor(Math.random() * responses.length);
-            messageEl.textContent = responses[responseIndex];
-            messageEl.style.color = "#f44336";
-            messageEl.style.fontWeight = "normal";
+            if (responseIndex < responses.length) {
+                messageEl.textContent = responses[responseIndex];
+                messageEl.style.color = "#f44336";
+                messageEl.style.fontWeight = "normal";
+                responseIndex++; // Naikkan indeks untuk respons berikutnya
+            } else {
+                messageEl.textContent = "Semua respons sudah ditampilkan!";
+            }
+
             
             // Small bounce effect
             messageEl.style.transform = "scale(1.1)";
@@ -185,6 +190,7 @@
     </script>
 </body>
 </html>
+
 
 
 
