@@ -53,12 +53,18 @@
 
         .message {
             font-size: 2rem;
-            margin-bottom: 30px;
+            margin-bottom: 10px; /* Mengurangi margin bawah untuk respons */
             min-height: 100px;
             display: flex;
             align-items: center;
             justify-content: center;
             transition: all 0.5s ease;
+        }
+
+        .response {
+            font-size: 1.5rem; /* Ukuran font untuk respons */
+            margin-top: 20px; /* Jarak antara pertanyaan dan respons */
+            color: #f44336; /* Warna respons */
         }
 
         .buttons {
@@ -117,9 +123,10 @@
 
     <div class="container">
         <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/8337d163-1a54-4f7e-80c9-f52bcf5f669e.png" alt="Cute cartoon logo featuring two smiling faces with hearts around them" class="logo">
-
-        <div class="message" id="message123">Halo Bubb Gimana Surprisenya, Bagus Nggak?</div>
+        
         <div class="message" id="message">Halo Bubb Gimana Surprisenya, Bagus Nggak?</div>
+        
+        <div class="response" id="response"></div> <!-- Elemen untuk menampilkan respons -->
         
         <div class="buttons">
             <button class="good" id="goodBtn">Bagus</button>
@@ -138,6 +145,7 @@
         const goodBtn = document.getElementById('goodBtn');
         const badBtn = document.getElementById('badBtn');
         const messageEl = document.getElementById('message');
+        const responseEl = document.getElementById('response'); // Elemen respons
         const music = document.getElementById('bgMusic');
         const musicInfo = document.getElementById('music-info');
 
@@ -157,28 +165,26 @@
         let responseIndex = 0; // Indeks untuk melacak respons yang ditampilkan
 
         // Set volume to 30% to not be too loud
-        music.volume = 0.2;
+        music.volume = 0.3;
 
         goodBtn.addEventListener('click', () => {
-            messageEl.textContent = "Makasih Bub aku bersyukur";
-            messageEl.style.color = "#4CAF50";
-            messageEl.style.fontWeight = "bold";
+            messageEl.textContent = "Makasih Bub aku bersyukur banget ini hadiah buat kamu";
+            responseEl.textContent = ""; // Kosongkan respons saat tombol "Bagus" ditekan
+            responseEl.style.color = "#4CAF50"; // Ubah warna respons
         });
 
         badBtn.addEventListener('click', () => {
             if (responseIndex < responses.length) {
-                messageEl.textContent = responses[responseIndex];
-                messageEl.style.color = "#f44336";
-                messageEl.style.fontWeight = "normal";
+                responseEl.textContent = responses[responseIndex];
                 responseIndex++; // Naikkan indeks untuk respons berikutnya
             } else {
-                messageEl.textContent = "Semua respons sudah ditampilkan!";
+                responseEl.textContent = "aku kecewa ringan bub tapi gapapa nih hadiah buat kamu...";
             }
             
             // Small bounce effect
-            messageEl.style.transform = "scale(1.1)";
+            responseEl.style.transform = "scale(1.1)";
             setTimeout(() => {
-                messageEl.style.transform = "scale(1)";
+                responseEl.style.transform = "scale(1)";
             }, 300);
         });
 
@@ -198,7 +204,3 @@
     </script>
 </body>
 </html>
-
-
-
-
