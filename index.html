@@ -175,6 +175,7 @@
         badBtn.addEventListener('click', () => {
             if (responseIndex < responses.length) {
                 responseEl.textContent = responses[responseIndex];
+                responseEl.style.color = "#F73914";
                 responseIndex++; // Naikkan indeks untuk respons berikutnya
             } else {
                 responseEl.textContent = "aku kecewa ringan bub tapi gapapa nih hadiah buat kamu...";
