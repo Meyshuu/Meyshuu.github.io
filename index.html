@@ -46,6 +46,28 @@
             transition: opacity 0.5s;
         }
         
+        .video-controls {
+            background: rgba(0,0,0,0.7);
+            padding: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .video-controls button {
+            background: #3498db;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+        
+        #seekBar {
+            flex-grow: 1;
+            margin: 0 15px;
+        }
+        
         .loader {
             border: 5px solid #f3f3f3;
             border-top: 5px solid #3498db;
@@ -69,11 +91,16 @@
     </div>
     
     <div class="video-container">
-        <video id="myVideo" autoplay muted>
+        <video id="myVideo" autoplay muted controls>
             <!-- Ganti dengan path video Anda -->
             <source src="vids.mp4" type="video/mp4">
             Browser Anda tidak mendukung pemutaran video.
         </video>
+        <div class="video-controls">
+            <button id="playPauseBtn">Pause</button>
+            <input type="range" id="seekBar" value="0">
+            <button id="fullscreenBtn">Fullscreen</button>
+        </div>
     </div>
 
     <script>
@@ -101,6 +128,41 @@
             
             // Mulai loading video
             video.load();
+            
+            // Video control functions
+            const playPauseBtn = document.getElementById('playPauseBtn');
+            const fullscreenBtn = document.getElementById('fullscreenBtn');
+            const seekBar = document.getElementById('seekBar');
+            
+            playPauseBtn.addEventListener('click', function() {
+                if (video.paused) {
+                    video.play();
+                    playPauseBtn.textContent = 'Pause';
+                } else {
+                    video.pause();
+                    playPauseBtn.textContent = 'Play';
+                }
+            });
+            
+            fullscreenBtn.addEventListener('click', function() {
+                if (!document.fullscreenElement) {
+                    video.parentElement.requestFullscreen().catch(err => {
+                        console.error(`Error attempting to enable fullscreen: ${err.message}`);
+                    });
+                } else {
+                    document.exitFullscreen();
+                }
+            });
+            
+            seekBar.addEventListener('input', function() {
+                const time = video.duration * (seekBar.value / 100);
+                video.currentTime = time;
+            });
+            
+            video.addEventListener('timeupdate', function() {
+                const value = (100 / video.duration) * video.currentTime;
+                seekBar.value = value;
+            });
         });
     </script>
 </body>
